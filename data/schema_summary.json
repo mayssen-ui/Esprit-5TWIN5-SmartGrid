@@ -1,0 +1,432 @@
+{
+  "namespace": "http://www.semanticweb.org/smartgrid-semantic#",
+  "classes": {
+    "EnergySource": {
+      "parents": [],
+      "enfants": [
+        "SolarSource",
+        "WindSource",
+        "RenewableEnergySource"
+      ],
+      "definie": false,
+      "commentaire": ""
+    },
+    "EnergyStorage": {
+      "parents": [],
+      "enfants": [
+        "BatteryStorage"
+      ],
+      "definie": false,
+      "commentaire": ""
+    },
+    "Building": {
+      "parents": [],
+      "enfants": [
+        "ResidentialBuilding",
+        "CommercialBuilding",
+        "IndustrialBuilding",
+        "RenewableBuilding"
+      ],
+      "definie": false,
+      "commentaire": ""
+    },
+    "GridElement": {
+      "parents": [],
+      "enfants": [
+        "GridNode",
+        "Substation"
+      ],
+      "definie": false,
+      "commentaire": ""
+    },
+    "Energy": {
+      "parents": [],
+      "enfants": [
+        "RenewableEnergy",
+        "NonRenewableEnergy"
+      ],
+      "definie": false,
+      "commentaire": ""
+    },
+    "User": {
+      "parents": [],
+      "enfants": [],
+      "definie": false,
+      "commentaire": ""
+    },
+    "SolarSource": {
+      "parents": [
+        "EnergySource"
+      ],
+      "enfants": [],
+      "definie": false,
+      "commentaire": ""
+    },
+    "WindSource": {
+      "parents": [
+        "EnergySource"
+      ],
+      "enfants": [],
+      "definie": false,
+      "commentaire": ""
+    },
+    "BatteryStorage": {
+      "parents": [
+        "EnergyStorage"
+      ],
+      "enfants": [],
+      "definie": false,
+      "commentaire": ""
+    },
+    "ResidentialBuilding": {
+      "parents": [
+        "Building"
+      ],
+      "enfants": [],
+      "definie": false,
+      "commentaire": ""
+    },
+    "CommercialBuilding": {
+      "parents": [
+        "Building"
+      ],
+      "enfants": [],
+      "definie": false,
+      "commentaire": ""
+    },
+    "IndustrialBuilding": {
+      "parents": [
+        "Building"
+      ],
+      "enfants": [],
+      "definie": false,
+      "commentaire": ""
+    },
+    "GridNode": {
+      "parents": [
+        "GridElement"
+      ],
+      "enfants": [],
+      "definie": false,
+      "commentaire": ""
+    },
+    "Substation": {
+      "parents": [
+        "GridElement"
+      ],
+      "enfants": [],
+      "definie": false,
+      "commentaire": ""
+    },
+    "RenewableEnergy": {
+      "parents": [
+        "Energy"
+      ],
+      "enfants": [],
+      "definie": false,
+      "commentaire": ""
+    },
+    "NonRenewableEnergy": {
+      "parents": [
+        "Energy"
+      ],
+      "enfants": [],
+      "definie": false,
+      "commentaire": ""
+    },
+    "RenewableEnergySource": {
+      "parents": [
+        "EnergySource"
+      ],
+      "enfants": [],
+      "definie": true,
+      "commentaire": "Source d'énergie produisant une énergie renouvelable (classe définie, auxiliaire de RenewableBuilding)."
+    },
+    "RenewableBuilding": {
+      "parents": [
+        "Building"
+      ],
+      "enfants": [],
+      "definie": true,
+      "commentaire": "Bâtiment alimenté par au moins une source d'énergie renouvelable (classe définie)."
+    }
+  },
+  "proprietes": {
+    "produces": {
+      "nom": "produces",
+      "type": "object",
+      "domaine": [
+        "EnergySource"
+      ],
+      "portee": [
+        "Energy"
+      ],
+      "symetrique": false,
+      "label": ""
+    },
+    "consumes": {
+      "nom": "consumes",
+      "type": "object",
+      "domaine": [
+        "Building"
+      ],
+      "portee": [
+        "Energy"
+      ],
+      "symetrique": false,
+      "label": ""
+    },
+    "storesEnergy": {
+      "nom": "storesEnergy",
+      "type": "object",
+      "domaine": [
+        "EnergyStorage"
+      ],
+      "portee": [
+        "Energy"
+      ],
+      "symetrique": false,
+      "label": ""
+    },
+    "connectedTo": {
+      "nom": "connectedTo",
+      "type": "object",
+      "domaine": [
+        "GridElement"
+      ],
+      "portee": [
+        "GridElement"
+      ],
+      "symetrique": true,
+      "label": ""
+    },
+    "suppliedBy": {
+      "nom": "suppliedBy",
+      "type": "object",
+      "domaine": [
+        "Building"
+      ],
+      "portee": [
+        "EnergySource"
+      ],
+      "symetrique": false,
+      "label": ""
+    },
+    "locatedIn": {
+      "nom": "locatedIn",
+      "type": "object",
+      "domaine": [
+        "Building"
+      ],
+      "portee": [
+        "GridNode"
+      ],
+      "symetrique": false,
+      "label": ""
+    },
+    "contains": {
+      "nom": "contains",
+      "type": "object",
+      "domaine": [
+        "Substation"
+      ],
+      "portee": [
+        "GridNode"
+      ],
+      "symetrique": false,
+      "label": ""
+    },
+    "hasStorage": {
+      "nom": "hasStorage",
+      "type": "object",
+      "domaine": [
+        "Building"
+      ],
+      "portee": [
+        "EnergyStorage"
+      ],
+      "symetrique": false,
+      "label": ""
+    },
+    "hasSource": {
+      "nom": "hasSource",
+      "type": "object",
+      "domaine": [
+        "GridNode"
+      ],
+      "portee": [
+        "EnergySource"
+      ],
+      "symetrique": false,
+      "label": ""
+    },
+    "feeds": {
+      "nom": "feeds",
+      "type": "object",
+      "domaine": [
+        "EnergySource"
+      ],
+      "portee": [
+        "GridNode"
+      ],
+      "symetrique": false,
+      "label": ""
+    },
+    "owns": {
+      "nom": "owns",
+      "type": "object",
+      "domaine": [
+        "User"
+      ],
+      "portee": [
+        "Building"
+      ],
+      "symetrique": false,
+      "label": ""
+    },
+    "manages": {
+      "nom": "manages",
+      "type": "object",
+      "domaine": [
+        "User"
+      ],
+      "portee": [
+        "GridNode"
+      ],
+      "symetrique": false,
+      "label": ""
+    },
+    "hasName": {
+      "nom": "hasName",
+      "type": "data",
+      "domaine": [
+        "Thing"
+      ],
+      "portee": [
+        "xsd:string"
+      ],
+      "symetrique": false,
+      "label": ""
+    },
+    "hasCapacity": {
+      "nom": "hasCapacity",
+      "type": "data",
+      "domaine": [
+        "EnergySource"
+      ],
+      "portee": [
+        "xsd:decimal"
+      ],
+      "symetrique": false,
+      "label": ""
+    },
+    "hasPowerOutput": {
+      "nom": "hasPowerOutput",
+      "type": "data",
+      "domaine": [
+        "EnergySource"
+      ],
+      "portee": [
+        "xsd:decimal"
+      ],
+      "symetrique": false,
+      "label": ""
+    },
+    "hasConsumption": {
+      "nom": "hasConsumption",
+      "type": "data",
+      "domaine": [
+        "Building"
+      ],
+      "portee": [
+        "xsd:decimal"
+      ],
+      "symetrique": false,
+      "label": ""
+    },
+    "hasStorageCapacity": {
+      "nom": "hasStorageCapacity",
+      "type": "data",
+      "domaine": [
+        "EnergyStorage"
+      ],
+      "portee": [
+        "xsd:decimal"
+      ],
+      "symetrique": false,
+      "label": ""
+    },
+    "hasEfficiency": {
+      "nom": "hasEfficiency",
+      "type": "data",
+      "domaine": [
+        "EnergyStorage"
+      ],
+      "portee": [
+        "xsd:decimal"
+      ],
+      "symetrique": false,
+      "label": ""
+    },
+    "hasVoltage": {
+      "nom": "hasVoltage",
+      "type": "data",
+      "domaine": [
+        "GridElement"
+      ],
+      "portee": [
+        "xsd:decimal"
+      ],
+      "symetrique": false,
+      "label": ""
+    },
+    "hasLocation": {
+      "nom": "hasLocation",
+      "type": "data",
+      "domaine": [
+        "GridElement"
+      ],
+      "portee": [
+        "xsd:string"
+      ],
+      "symetrique": false,
+      "label": ""
+    },
+    "hasInstallationDate": {
+      "nom": "hasInstallationDate",
+      "type": "data",
+      "domaine": [
+        "GridElement"
+      ],
+      "portee": [
+        "xsd:dateTime"
+      ],
+      "symetrique": false,
+      "label": ""
+    },
+    "hasEmail": {
+      "nom": "hasEmail",
+      "type": "data",
+      "domaine": [
+        "User"
+      ],
+      "portee": [
+        "xsd:string"
+      ],
+      "symetrique": false,
+      "label": ""
+    },
+    "hasRole": {
+      "nom": "hasRole",
+      "type": "data",
+      "domaine": [
+        "User"
+      ],
+      "portee": [
+        "xsd:string"
+      ],
+      "symetrique": false,
+      "label": ""
+    }
+  }
+}

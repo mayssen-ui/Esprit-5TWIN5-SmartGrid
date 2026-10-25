@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+*.pyc
+.env
+.pytest_cache/
+data/history.json
+data/logs/
+data/*.bak
+data/*.tmp
+SmartGrid-Semantic (1).owl
+.claude/

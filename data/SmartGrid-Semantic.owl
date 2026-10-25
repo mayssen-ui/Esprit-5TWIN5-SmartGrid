@@ -1,0 +1,699 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF
+   xmlns="http://www.semanticweb.org/smartgrid-semantic#"
+   xmlns:owl="http://www.w3.org/2002/07/owl#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#SolarFarm_Ariana">
+    <rdf:type rdf:resource="http://www.semanticweb.org/smartgrid-semantic#SolarSource"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <produces rdf:resource="http://www.semanticweb.org/smartgrid-semantic#SolarEnergy_001"/>
+    <feeds rdf:resource="http://www.semanticweb.org/smartgrid-semantic#GridNode_Ariana_01"/>
+    <hasName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Ferme solaire de l'Ariana</hasName>
+    <hasCapacity rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">20.0</hasCapacity>
+    <hasPowerOutput rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">16.0</hasPowerOutput>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N4d7d5599c1c94e27ae5b355e021bc8f1">
+    <rdf:first rdf:resource="http://www.semanticweb.org/smartgrid-semantic#EnergyStorage"/>
+    <rdf:rest rdf:nodeID="N6b7fbf7da8534db4a688346c49495f33"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N99529027151644ca9296e02ab24eb186">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDifferent"/>
+    <owl:distinctMembers rdf:nodeID="Nad769c8b347148e486f9b93e4c22bcbc"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N68ffe864b5d94f3d9169315540037c38">
+    <rdf:first rdf:resource="http://www.semanticweb.org/smartgrid-semantic#WindEnergy_001"/>
+    <rdf:rest rdf:nodeID="Nf827f4087c8746dcbb3c42b4d9ba8d2e"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#hasPowerOutput">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/smartgrid-semantic#EnergySource"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Nd74d2b4e283340aca88d8f5a9aa59fb5">
+    <rdf:first rdf:resource="http://www.semanticweb.org/smartgrid-semantic#GasPlant_Sousse"/>
+    <rdf:rest rdf:nodeID="N2de8b606904f40f5ae2bad57786539c1"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#House_Ariana_01">
+    <rdf:type rdf:resource="http://www.semanticweb.org/smartgrid-semantic#ResidentialBuilding"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <consumes rdf:resource="http://www.semanticweb.org/smartgrid-semantic#SolarEnergy_001"/>
+    <suppliedBy rdf:resource="http://www.semanticweb.org/smartgrid-semantic#SolarFarm_Ariana"/>
+    <locatedIn rdf:resource="http://www.semanticweb.org/smartgrid-semantic#GridNode_Ariana_01"/>
+    <hasName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Maison Ariana 01</hasName>
+    <hasConsumption rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.015</hasConsumption>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N386c2e42119e43489917433eacf42dce">
+    <rdf:first rdf:resource="http://www.semanticweb.org/smartgrid-semantic#House_Tunis_01"/>
+    <rdf:rest rdf:nodeID="N2d58ee2c59b64bf5a104f3463c8fe9f9"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#SolarFarm_Tunis">
+    <rdf:type rdf:resource="http://www.semanticweb.org/smartgrid-semantic#SolarSource"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <produces rdf:resource="http://www.semanticweb.org/smartgrid-semantic#SolarEnergy_001"/>
+    <feeds rdf:resource="http://www.semanticweb.org/smartgrid-semantic#GridNode_Tunis_01"/>
+    <hasName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Ferme solaire de Tunis</hasName>
+    <hasCapacity rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">50.0</hasCapacity>
+    <hasPowerOutput rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">42.5</hasPowerOutput>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#SolarFarm_Sousse">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/smartgrid-semantic#SolarSource"/>
+    <produces rdf:resource="http://www.semanticweb.org/smartgrid-semantic#SolarEnergy_001"/>
+    <feeds rdf:resource="http://www.semanticweb.org/smartgrid-semantic#GridNode_Sousse_01"/>
+    <hasName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Ferme solaire de Sousse</hasName>
+    <hasCapacity rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">30.0</hasCapacity>
+    <hasPowerOutput rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">24.0</hasPowerOutput>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#GasEnergy_001">
+    <rdf:type rdf:resource="http://www.semanticweb.org/smartgrid-semantic#NonRenewableEnergy"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <hasName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Énergie gaz 001</hasName>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Nbcc33feea04d4a5a9f63a1df921d2346">
+    <rdf:first rdf:resource="http://www.semanticweb.org/smartgrid-semantic#Building"/>
+    <rdf:rest rdf:nodeID="N010d7308539548f3a62bd93143fffd1c"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Nb01ea201fc4e48cd8650e91b4bd40a31">
+    <rdf:first rdf:resource="http://www.semanticweb.org/smartgrid-semantic#Battery_Tunis_01"/>
+    <rdf:rest rdf:nodeID="N7af2eb070ad84a55a15c71041b1e1dec"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#GridNode_Ariana_01">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/smartgrid-semantic#GridNode"/>
+    <connectedTo rdf:resource="http://www.semanticweb.org/smartgrid-semantic#GridNode_Sousse_01"/>
+    <connectedTo rdf:resource="http://www.semanticweb.org/smartgrid-semantic#GridNode_Tunis_01"/>
+    <hasSource rdf:resource="http://www.semanticweb.org/smartgrid-semantic#SolarFarm_Ariana"/>
+    <hasSource rdf:resource="http://www.semanticweb.org/smartgrid-semantic#WindFarm_Bizerte"/>
+    <hasName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Nœud Ariana 01</hasName>
+    <hasVoltage rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">30.0</hasVoltage>
+    <hasLocation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Ariana</hasLocation>
+    <hasInstallationDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2021-06-01T00:00:00</hasInstallationDate>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#GasPlant_Sousse">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/smartgrid-semantic#EnergySource"/>
+    <produces rdf:resource="http://www.semanticweb.org/smartgrid-semantic#GasEnergy_001"/>
+    <feeds rdf:resource="http://www.semanticweb.org/smartgrid-semantic#GridNode_Sousse_01"/>
+    <hasName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Centrale à gaz de Sousse</hasName>
+    <hasCapacity rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">60.0</hasCapacity>
+    <hasPowerOutput rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">45.0</hasPowerOutput>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N5b9394240a0146ca9706f9482cb92634">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://www.semanticweb.org/smartgrid-semantic#produces"/>
+    <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/smartgrid-semantic#RenewableEnergy"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#ESPRIT">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/smartgrid-semantic#CommercialBuilding"/>
+    <consumes rdf:resource="http://www.semanticweb.org/smartgrid-semantic#SolarEnergy_001"/>
+    <suppliedBy rdf:resource="http://www.semanticweb.org/smartgrid-semantic#SolarFarm_Tunis"/>
+    <locatedIn rdf:resource="http://www.semanticweb.org/smartgrid-semantic#GridNode_Tunis_01"/>
+    <hasStorage rdf:resource="http://www.semanticweb.org/smartgrid-semantic#Battery_Tunis_01"/>
+    <hasName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ESPRIT</hasName>
+    <hasConsumption rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1.2</hasConsumption>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N2f34887f9830472297b7487c614cf9f7">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://www.semanticweb.org/smartgrid-semantic#produces"/>
+    <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/smartgrid-semantic#RenewableEnergy"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#connectedTo">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#SymmetricProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/smartgrid-semantic#GridElement"/>
+    <rdfs:range rdf:resource="http://www.semanticweb.org/smartgrid-semantic#GridElement"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#hasSource">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/smartgrid-semantic#GridNode"/>
+    <rdfs:range rdf:resource="http://www.semanticweb.org/smartgrid-semantic#EnergySource"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N8eab6b91a305480d8de11bde388e4712">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://www.semanticweb.org/smartgrid-semantic#suppliedBy"/>
+    <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/smartgrid-semantic#RenewableEnergySource"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#User_Leila">
+    <rdf:type rdf:resource="http://www.semanticweb.org/smartgrid-semantic#User"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <owns rdf:resource="http://www.semanticweb.org/smartgrid-semantic#Factory_Sousse_01"/>
+    <manages rdf:resource="http://www.semanticweb.org/smartgrid-semantic#GridNode_Sousse_01"/>
+    <hasName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Leila Gharbi</hasName>
+    <hasEmail rdf:datatype="http://www.w3.org/2001/XMLSchema#string">leila.gharbi@smartgrid.tn</hasEmail>
+    <hasRole rdf:datatype="http://www.w3.org/2001/XMLSchema#string">admin</hasRole>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Nd6ca16bc91ca44c3b8dda3e32cf96428">
+    <rdf:first rdf:resource="http://www.semanticweb.org/smartgrid-semantic#WindFarm_Sousse"/>
+    <rdf:rest rdf:nodeID="Nd74d2b4e283340aca88d8f5a9aa59fb5"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#hasVoltage">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/smartgrid-semantic#GridElement"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#WindFarm_Bizerte">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/smartgrid-semantic#WindSource"/>
+    <produces rdf:resource="http://www.semanticweb.org/smartgrid-semantic#WindEnergy_001"/>
+    <feeds rdf:resource="http://www.semanticweb.org/smartgrid-semantic#GridNode_Ariana_01"/>
+    <hasName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Parc éolien de Bizerte</hasName>
+    <hasCapacity rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">80.0</hasCapacity>
+    <hasPowerOutput rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">55.0</hasPowerOutput>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#WindFarm_Sousse">
+    <rdf:type rdf:resource="http://www.semanticweb.org/smartgrid-semantic#WindSource"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <produces rdf:resource="http://www.semanticweb.org/smartgrid-semantic#WindEnergy_001"/>
+    <feeds rdf:resource="http://www.semanticweb.org/smartgrid-semantic#GridNode_Sousse_01"/>
+    <hasName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Parc éolien de Sousse</hasName>
+    <hasCapacity rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">40.0</hasCapacity>
+    <hasPowerOutput rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">30.0</hasPowerOutput>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#Test">
+    <hasCapacity rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">10</hasCapacity>
+    <hasName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Test</hasName>
+    <hasPowerOutput rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">10</hasPowerOutput>
+    <rdf:type rdf:resource="http://www.semanticweb.org/smartgrid-semantic#SolarSource"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#Factory_Ariana_01">
+    <rdf:type rdf:resource="http://www.semanticweb.org/smartgrid-semantic#IndustrialBuilding"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <consumes rdf:resource="http://www.semanticweb.org/smartgrid-semantic#SolarEnergy_001"/>
+    <suppliedBy rdf:resource="http://www.semanticweb.org/smartgrid-semantic#SolarFarm_Ariana"/>
+    <locatedIn rdf:resource="http://www.semanticweb.org/smartgrid-semantic#GridNode_Ariana_01"/>
+    <hasName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Usine Ariana 01</hasName>
+    <hasConsumption rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">18.0</hasConsumption>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#Battery_Ariana_01">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/smartgrid-semantic#BatteryStorage"/>
+    <storesEnergy rdf:resource="http://www.semanticweb.org/smartgrid-semantic#SolarEnergy_001"/>
+    <hasName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Batterie Ariana 01</hasName>
+    <hasStorageCapacity rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">5.0</hasStorageCapacity>
+    <hasEfficiency rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.90</hasEfficiency>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#Factory_Tunis_01">
+    <rdf:type rdf:resource="http://www.semanticweb.org/smartgrid-semantic#IndustrialBuilding"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <consumes rdf:resource="http://www.semanticweb.org/smartgrid-semantic#WindEnergy_001"/>
+    <suppliedBy rdf:resource="http://www.semanticweb.org/smartgrid-semantic#WindFarm_Bizerte"/>
+    <locatedIn rdf:resource="http://www.semanticweb.org/smartgrid-semantic#GridNode_Tunis_01"/>
+    <hasName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Usine Tunis 01</hasName>
+    <hasConsumption rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">5.5</hasConsumption>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#feeds">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/smartgrid-semantic#EnergySource"/>
+    <rdfs:range rdf:resource="http://www.semanticweb.org/smartgrid-semantic#GridNode"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#Factory_Sousse_01">
+    <rdf:type rdf:resource="http://www.semanticweb.org/smartgrid-semantic#IndustrialBuilding"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <consumes rdf:resource="http://www.semanticweb.org/smartgrid-semantic#GasEnergy_001"/>
+    <suppliedBy rdf:resource="http://www.semanticweb.org/smartgrid-semantic#GasPlant_Sousse"/>
+    <locatedIn rdf:resource="http://www.semanticweb.org/smartgrid-semantic#GridNode_Sousse_01"/>
+    <hasName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Usine Sousse 01</hasName>
+    <hasConsumption rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">12.0</hasConsumption>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N470cac45a1b84a46860290b942122ac5">
+    <rdf:first rdf:resource="http://www.semanticweb.org/smartgrid-semantic#GridNode_Ariana_01"/>
+    <rdf:rest rdf:nodeID="Ne9cb686d939b4f34b2ad5393e58c0d29"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#Building">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:nodeID="Nf00223b98a524bde96a434533c4f0450"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#hasRole">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/smartgrid-semantic#User"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#User_Karim">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/smartgrid-semantic#User"/>
+    <owns rdf:resource="http://www.semanticweb.org/smartgrid-semantic#House_Ariana_01"/>
+    <owns rdf:resource="http://www.semanticweb.org/smartgrid-semantic#House_Sousse_01"/>
+    <owns rdf:resource="http://www.semanticweb.org/smartgrid-semantic#House_Tunis_01"/>
+    <hasName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Karim Mansour</hasName>
+    <hasEmail rdf:datatype="http://www.w3.org/2001/XMLSchema#string">karim.mansour@smartgrid.tn</hasEmail>
+    <hasRole rdf:datatype="http://www.w3.org/2001/XMLSchema#string">lecteur</hasRole>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#manages">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/smartgrid-semantic#User"/>
+    <rdfs:range rdf:resource="http://www.semanticweb.org/smartgrid-semantic#GridNode"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#NonRenewableEnergy">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/smartgrid-semantic#Energy"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N0512d0bffeb145cea590c611d7bab0b9">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://www.semanticweb.org/smartgrid-semantic#produces"/>
+    <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/smartgrid-semantic#RenewableEnergy"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#GridNode_Tunis_01">
+    <rdf:type rdf:resource="http://www.semanticweb.org/smartgrid-semantic#GridNode"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <connectedTo rdf:resource="http://www.semanticweb.org/smartgrid-semantic#GridNode_Ariana_01"/>
+    <hasSource rdf:resource="http://www.semanticweb.org/smartgrid-semantic#SolarFarm_Tunis"/>
+    <hasName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Nœud Tunis 01</hasName>
+    <hasVoltage rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">30.0</hasVoltage>
+    <hasLocation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Tunis</hasLocation>
+    <hasInstallationDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2020-03-15T00:00:00</hasInstallationDate>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#hasEfficiency">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/smartgrid-semantic#EnergyStorage"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N010d7308539548f3a62bd93143fffd1c">
+    <rdf:first rdf:nodeID="N8eab6b91a305480d8de11bde388e4712"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#User">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N7af2eb070ad84a55a15c71041b1e1dec">
+    <rdf:first rdf:resource="http://www.semanticweb.org/smartgrid-semantic#Battery_Ariana_01"/>
+    <rdf:rest rdf:nodeID="N122a8d7947fc4b7984f2e8edc9936fea"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N1cc57fca24c34512a058a21464391c22">
+    <rdf:first rdf:resource="http://www.semanticweb.org/smartgrid-semantic#Substation_Ariana"/>
+    <rdf:rest rdf:nodeID="N1243196d21f84b318fddf12d45f5c58f"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#WindSource">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:nodeID="N2f34887f9830472297b7487c614cf9f7"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/smartgrid-semantic#EnergySource"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#Mall_Sousse_01">
+    <rdf:type rdf:resource="http://www.semanticweb.org/smartgrid-semantic#CommercialBuilding"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <consumes rdf:resource="http://www.semanticweb.org/smartgrid-semantic#SolarEnergy_001"/>
+    <suppliedBy rdf:resource="http://www.semanticweb.org/smartgrid-semantic#SolarFarm_Sousse"/>
+    <locatedIn rdf:resource="http://www.semanticweb.org/smartgrid-semantic#GridNode_Sousse_01"/>
+    <hasStorage rdf:resource="http://www.semanticweb.org/smartgrid-semantic#Battery_Sousse_01"/>
+    <hasName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Centre commercial Sousse 01</hasName>
+    <hasConsumption rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2.5</hasConsumption>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#WindEnergy_001">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/smartgrid-semantic#RenewableEnergy"/>
+    <hasName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Énergie éolienne 001</hasName>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#consumes">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/smartgrid-semantic#Building"/>
+    <rdfs:range rdf:resource="http://www.semanticweb.org/smartgrid-semantic#Energy"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#Batterie_Sousse">
+    <hasName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Batterie Sousse</hasName>
+    <hasStorageCapacity rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">12.0</hasStorageCapacity>
+    <rdf:type rdf:resource="http://www.semanticweb.org/smartgrid-semantic#BatteryStorage"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#Building_Ariana_01">
+    <rdf:type rdf:resource="http://www.semanticweb.org/smartgrid-semantic#CommercialBuilding"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <consumes rdf:resource="http://www.semanticweb.org/smartgrid-semantic#SolarEnergy_001"/>
+    <suppliedBy rdf:resource="http://www.semanticweb.org/smartgrid-semantic#SolarFarm_Ariana"/>
+    <locatedIn rdf:resource="http://www.semanticweb.org/smartgrid-semantic#GridNode_Ariana_01"/>
+    <hasStorage rdf:resource="http://www.semanticweb.org/smartgrid-semantic#Battery_Ariana_01"/>
+    <hasName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Bâtiment Ariana 01</hasName>
+    <hasConsumption rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.8</hasConsumption>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Nb7602980a2ba4607bef987c5e78b789e">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:intersectionOf rdf:nodeID="N6e7491bda8ef42cf8f58075f12593fcf"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#User_Salma">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/smartgrid-semantic#User"/>
+    <owns rdf:resource="http://www.semanticweb.org/smartgrid-semantic#Factory_Ariana_01"/>
+    <owns rdf:resource="http://www.semanticweb.org/smartgrid-semantic#Factory_Tunis_01"/>
+    <manages rdf:resource="http://www.semanticweb.org/smartgrid-semantic#GridNode_Ariana_01"/>
+    <hasName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Salma Trabelsi</hasName>
+    <hasEmail rdf:datatype="http://www.w3.org/2001/XMLSchema#string">salma.trabelsi@smartgrid.tn</hasEmail>
+    <hasRole rdf:datatype="http://www.w3.org/2001/XMLSchema#string">lecteur</hasRole>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#hasStorage">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/smartgrid-semantic#Building"/>
+    <rdfs:range rdf:resource="http://www.semanticweb.org/smartgrid-semantic#EnergyStorage"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#GridNode">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/smartgrid-semantic#GridElement"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N6b7fbf7da8534db4a688346c49495f33">
+    <rdf:first rdf:resource="http://www.semanticweb.org/smartgrid-semantic#Building"/>
+    <rdf:rest rdf:nodeID="Ndc4ac08f540d4ec1937ea01c0bc6b394"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#suppliedBy">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/smartgrid-semantic#Building"/>
+    <rdfs:range rdf:resource="http://www.semanticweb.org/smartgrid-semantic#EnergySource"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#House_Tunis_01">
+    <rdf:type rdf:resource="http://www.semanticweb.org/smartgrid-semantic#ResidentialBuilding"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <locatedIn rdf:resource="http://www.semanticweb.org/smartgrid-semantic#GridNode_Tunis_01"/>
+    <hasName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Maison Tunis 01</hasName>
+    <hasConsumption rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.01</hasConsumption>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#RenewableEnergySource">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:comment xml:lang="fr">Source d'énergie produisant une énergie renouvelable (classe définie, auxiliaire de RenewableBuilding).</rdfs:comment>
+    <owl:equivalentClass rdf:nodeID="Nb7602980a2ba4607bef987c5e78b789e"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#hasCapacity">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/smartgrid-semantic#EnergySource"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#storesEnergy">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/smartgrid-semantic#EnergyStorage"/>
+    <rdfs:range rdf:resource="http://www.semanticweb.org/smartgrid-semantic#Energy"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#Battery_Sousse_01">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/smartgrid-semantic#BatteryStorage"/>
+    <storesEnergy rdf:resource="http://www.semanticweb.org/smartgrid-semantic#SolarEnergy_001"/>
+    <hasName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Batterie Sousse 01</hasName>
+    <hasStorageCapacity rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8.0</hasStorageCapacity>
+    <hasEfficiency rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.88</hasEfficiency>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#RenewableBuilding">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:comment xml:lang="fr">Bâtiment alimenté par au moins une source d'énergie renouvelable (classe définie).</rdfs:comment>
+    <owl:equivalentClass rdf:nodeID="N567bb481e7eb4b4385ce78ac94fdb6b5"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#hasStorageCapacity">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/smartgrid-semantic#EnergyStorage"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#produces">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/smartgrid-semantic#EnergySource"/>
+    <rdfs:range rdf:resource="http://www.semanticweb.org/smartgrid-semantic#Energy"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Nc5929852150d4153affc3a3d50fcc0f0">
+    <rdf:first rdf:nodeID="N0512d0bffeb145cea590c611d7bab0b9"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Nac7cf18a4314493ba845860989d7f544">
+    <rdf:first rdf:resource="http://www.semanticweb.org/smartgrid-semantic#Energy"/>
+    <rdf:rest rdf:nodeID="Na10326ac8ae34e078988ccbbcafc93c7"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#User_Ahmed">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/smartgrid-semantic#User"/>
+    <owns rdf:resource="http://www.semanticweb.org/smartgrid-semantic#ESPRIT"/>
+    <owns rdf:resource="http://www.semanticweb.org/smartgrid-semantic#Building_Ariana_01"/>
+    <owns rdf:resource="http://www.semanticweb.org/smartgrid-semantic#Mall_Sousse_01"/>
+    <manages rdf:resource="http://www.semanticweb.org/smartgrid-semantic#GridNode_Tunis_01"/>
+    <hasName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Ahmed Ben Salah</hasName>
+    <hasEmail rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ahmed.bensalah@smartgrid.tn</hasEmail>
+    <hasRole rdf:datatype="http://www.w3.org/2001/XMLSchema#string">admin</hasRole>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#locatedIn">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/smartgrid-semantic#Building"/>
+    <rdfs:range rdf:resource="http://www.semanticweb.org/smartgrid-semantic#GridNode"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N075c80ddb49347d9a491f44ebac262d2">
+    <rdf:first rdf:resource="http://www.semanticweb.org/smartgrid-semantic#House_Ariana_01"/>
+    <rdf:rest rdf:nodeID="N4d6a71f664e74174b9657cd6e2bbb292"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#Substation_Tunis">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/smartgrid-semantic#Substation"/>
+    <contains rdf:resource="http://www.semanticweb.org/smartgrid-semantic#GridNode_Tunis_01"/>
+    <hasName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Poste de Tunis</hasName>
+    <hasVoltage rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">90.0</hasVoltage>
+    <hasLocation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Tunis</hasLocation>
+    <hasInstallationDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2018-01-20T00:00:00</hasInstallationDate>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#hasInstallationDate">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/smartgrid-semantic#GridElement"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N26dcb3400ddb4ef58bada72ae01de7f9">
+    <rdf:first rdf:resource="http://www.semanticweb.org/smartgrid-semantic#User_Ahmed"/>
+    <rdf:rest rdf:nodeID="Nfbd845491f374634b191af4b37d31469"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#GridNode_Sousse_01">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/smartgrid-semantic#GridNode"/>
+    <connectedTo rdf:resource="http://www.semanticweb.org/smartgrid-semantic#GridNode_Ariana_01"/>
+    <hasSource rdf:resource="http://www.semanticweb.org/smartgrid-semantic#SolarFarm_Sousse"/>
+    <hasSource rdf:resource="http://www.semanticweb.org/smartgrid-semantic#WindFarm_Sousse"/>
+    <hasSource rdf:resource="http://www.semanticweb.org/smartgrid-semantic#GasPlant_Sousse"/>
+    <hasName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Nœud Sousse 01</hasName>
+    <hasVoltage rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">30.0</hasVoltage>
+    <hasLocation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Sousse</hasLocation>
+    <hasInstallationDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2022-09-10T00:00:00</hasInstallationDate>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N9a209e764a754292920425d46eb22f66">
+    <rdf:first rdf:resource="http://www.semanticweb.org/smartgrid-semantic#User_Karim"/>
+    <rdf:rest rdf:nodeID="N86602d6677f349e2be055d1d78049785"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N1a52bf821a434b43a5ef31d34b41918f">
+    <rdf:first rdf:resource="http://www.semanticweb.org/smartgrid-semantic#Factory_Sousse_01"/>
+    <rdf:rest rdf:nodeID="N075c80ddb49347d9a491f44ebac262d2"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#BatteryStorage">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:nodeID="Na56f73c28eb74d5e891746d2f1c857e2"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/smartgrid-semantic#EnergyStorage"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#Battery_Tunis_01">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/smartgrid-semantic#BatteryStorage"/>
+    <storesEnergy rdf:resource="http://www.semanticweb.org/smartgrid-semantic#SolarEnergy_001"/>
+    <hasName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Batterie Tunis 01</hasName>
+    <hasStorageCapacity rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">10.0</hasStorageCapacity>
+    <hasEfficiency rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.92</hasEfficiency>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Na10326ac8ae34e078988ccbbcafc93c7">
+    <rdf:first rdf:resource="http://www.semanticweb.org/smartgrid-semantic#User"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#SolarEnergy_001">
+    <rdf:type rdf:resource="http://www.semanticweb.org/smartgrid-semantic#RenewableEnergy"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <hasName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Énergie solaire 001</hasName>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N10f667b608724293ac465f29aa9ce591">
+    <rdf:first rdf:resource="http://www.semanticweb.org/smartgrid-semantic#EnergySource"/>
+    <rdf:rest rdf:nodeID="N4d7d5599c1c94e27ae5b355e021bc8f1"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#Substation_Sousse">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/smartgrid-semantic#Substation"/>
+    <contains rdf:resource="http://www.semanticweb.org/smartgrid-semantic#GridNode_Sousse_01"/>
+    <hasName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Poste de Sousse</hasName>
+    <hasVoltage rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">225.0</hasVoltage>
+    <hasLocation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Sousse</hasLocation>
+    <hasInstallationDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2020-11-03T00:00:00</hasInstallationDate>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#Substation_Ariana">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/smartgrid-semantic#Substation"/>
+    <contains rdf:resource="http://www.semanticweb.org/smartgrid-semantic#GridNode_Ariana_01"/>
+    <hasName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Poste de l'Ariana</hasName>
+    <hasVoltage rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">90.0</hasVoltage>
+    <hasLocation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Ariana</hasLocation>
+    <hasInstallationDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2019-05-12T00:00:00</hasInstallationDate>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N2d58ee2c59b64bf5a104f3463c8fe9f9">
+    <rdf:first rdf:resource="http://www.semanticweb.org/smartgrid-semantic#GridNode_Tunis_01"/>
+    <rdf:rest rdf:nodeID="N470cac45a1b84a46860290b942122ac5"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N4d6a71f664e74174b9657cd6e2bbb292">
+    <rdf:first rdf:resource="http://www.semanticweb.org/smartgrid-semantic#House_Sousse_01"/>
+    <rdf:rest rdf:nodeID="Nbc68408d8f6b442d804fef0e7e8fcbf9"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#House_Sousse_01">
+    <rdf:type rdf:resource="http://www.semanticweb.org/smartgrid-semantic#ResidentialBuilding"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <locatedIn rdf:resource="http://www.semanticweb.org/smartgrid-semantic#GridNode_Sousse_01"/>
+    <hasName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Maison Sousse 01</hasName>
+    <hasConsumption rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.02</hasConsumption>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Nf00223b98a524bde96a434533c4f0450">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://www.semanticweb.org/smartgrid-semantic#consumes"/>
+    <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/smartgrid-semantic#Energy"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#hasLocation">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/smartgrid-semantic#GridElement"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Nad8562507f3e4fd9aadc17a721b703cb">
+    <rdf:first rdf:resource="http://www.semanticweb.org/smartgrid-semantic#Mall_Sousse_01"/>
+    <rdf:rest rdf:nodeID="Nbace8bf3a6d64012966b2cb1c1f60c8a"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#owns">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/smartgrid-semantic#User"/>
+    <rdfs:range rdf:resource="http://www.semanticweb.org/smartgrid-semantic#Building"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Nfbd845491f374634b191af4b37d31469">
+    <rdf:first rdf:resource="http://www.semanticweb.org/smartgrid-semantic#User_Salma"/>
+    <rdf:rest rdf:nodeID="N9a209e764a754292920425d46eb22f66"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#contains">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/smartgrid-semantic#Substation"/>
+    <rdfs:range rdf:resource="http://www.semanticweb.org/smartgrid-semantic#GridNode"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Ndc4ac08f540d4ec1937ea01c0bc6b394">
+    <rdf:first rdf:resource="http://www.semanticweb.org/smartgrid-semantic#GridElement"/>
+    <rdf:rest rdf:nodeID="Nac7cf18a4314493ba845860989d7f544"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#RenewableEnergy">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/smartgrid-semantic#Energy"/>
+    <owl:disjointWith rdf:resource="http://www.semanticweb.org/smartgrid-semantic#NonRenewableEnergy"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Nbc68408d8f6b442d804fef0e7e8fcbf9">
+    <rdf:first rdf:resource="http://www.semanticweb.org/smartgrid-semantic#GridNode_Sousse_01"/>
+    <rdf:rest rdf:nodeID="N1cc57fca24c34512a058a21464391c22"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Nad769c8b347148e486f9b93e4c22bcbc">
+    <rdf:first rdf:resource="http://www.semanticweb.org/smartgrid-semantic#SolarFarm_Tunis"/>
+    <rdf:rest rdf:nodeID="Nd9b37e01855744699207555cd3db3a88"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Ne9cb686d939b4f34b2ad5393e58c0d29">
+    <rdf:first rdf:resource="http://www.semanticweb.org/smartgrid-semantic#Substation_Tunis"/>
+    <rdf:rest rdf:nodeID="N7a268fa35e47405daf4c35628685f055"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#hasConsumption">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/smartgrid-semantic#Building"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#hasName">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Nd9b37e01855744699207555cd3db3a88">
+    <rdf:first rdf:resource="http://www.semanticweb.org/smartgrid-semantic#SolarFarm_Ariana"/>
+    <rdf:rest rdf:nodeID="N9540adc2acb2451d8519287a3f1f7cc9"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Nd9678ecc367a478db9a81ee1d802e22a">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+    <owl:members rdf:nodeID="N10f667b608724293ac465f29aa9ce591"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N9540adc2acb2451d8519287a3f1f7cc9">
+    <rdf:first rdf:resource="http://www.semanticweb.org/smartgrid-semantic#WindFarm_Bizerte"/>
+    <rdf:rest rdf:nodeID="Nb01ea201fc4e48cd8650e91b4bd40a31"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Nf827f4087c8746dcbb3c42b4d9ba8d2e">
+    <rdf:first rdf:resource="http://www.semanticweb.org/smartgrid-semantic#GasEnergy_001"/>
+    <rdf:rest rdf:nodeID="N95134506f3c44356bb93e2b3aa19e3c0"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N567bb481e7eb4b4385ce78ac94fdb6b5">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:intersectionOf rdf:nodeID="Nbcc33feea04d4a5a9f63a1df921d2346"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N122a8d7947fc4b7984f2e8edc9936fea">
+    <rdf:first rdf:resource="http://www.semanticweb.org/smartgrid-semantic#ESPRIT"/>
+    <rdf:rest rdf:nodeID="Ncbb6d8a8c73a482e90c249d81f8d9d6e"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#EnergySource">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N86602d6677f349e2be055d1d78049785">
+    <rdf:first rdf:resource="http://www.semanticweb.org/smartgrid-semantic#User_Leila"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#hasEmail">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/smartgrid-semantic#User"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N95134506f3c44356bb93e2b3aa19e3c0">
+    <rdf:first rdf:resource="http://www.semanticweb.org/smartgrid-semantic#SolarFarm_Sousse"/>
+    <rdf:rest rdf:nodeID="Nd6ca16bc91ca44c3b8dda3e32cf96428"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N6e7491bda8ef42cf8f58075f12593fcf">
+    <rdf:first rdf:resource="http://www.semanticweb.org/smartgrid-semantic#EnergySource"/>
+    <rdf:rest rdf:nodeID="Nc5929852150d4153affc3a3d50fcc0f0"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#CommercialBuilding">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/smartgrid-semantic#Building"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Ontology"/>
+    <rdfs:label xml:lang="fr">SmartGrid-Semantic</rdfs:label>
+    <rdfs:comment xml:lang="fr">Ontologie sémantique pour la modélisation des réseaux électriques intelligents (Sujet 3 - Énergie, Validation 1, Module Web Sémantique).</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Ncbb6d8a8c73a482e90c249d81f8d9d6e">
+    <rdf:first rdf:resource="http://www.semanticweb.org/smartgrid-semantic#Building_Ariana_01"/>
+    <rdf:rest rdf:nodeID="N558af80cd3084024b34051c0f804a65c"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#ResidentialBuilding">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/smartgrid-semantic#Building"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#SolarSource">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:nodeID="N5b9394240a0146ca9706f9482cb92634"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/smartgrid-semantic#EnergySource"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#Substation">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/smartgrid-semantic#GridElement"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Nbace8bf3a6d64012966b2cb1c1f60c8a">
+    <rdf:first rdf:resource="http://www.semanticweb.org/smartgrid-semantic#Factory_Ariana_01"/>
+    <rdf:rest rdf:nodeID="N1a52bf821a434b43a5ef31d34b41918f"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N2de8b606904f40f5ae2bad57786539c1">
+    <rdf:first rdf:resource="http://www.semanticweb.org/smartgrid-semantic#Battery_Sousse_01"/>
+    <rdf:rest rdf:nodeID="Nad8562507f3e4fd9aadc17a721b703cb"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N1243196d21f84b318fddf12d45f5c58f">
+    <rdf:first rdf:resource="http://www.semanticweb.org/smartgrid-semantic#Substation_Sousse"/>
+    <rdf:rest rdf:nodeID="N26dcb3400ddb4ef58bada72ae01de7f9"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Na56f73c28eb74d5e891746d2f1c857e2">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://www.semanticweb.org/smartgrid-semantic#storesEnergy"/>
+    <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/smartgrid-semantic#Energy"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N7a268fa35e47405daf4c35628685f055">
+    <rdf:first rdf:resource="http://www.semanticweb.org/smartgrid-semantic#SolarEnergy_001"/>
+    <rdf:rest rdf:nodeID="N68ffe864b5d94f3d9169315540037c38"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#EnergyStorage">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N558af80cd3084024b34051c0f804a65c">
+    <rdf:first rdf:resource="http://www.semanticweb.org/smartgrid-semantic#Factory_Tunis_01"/>
+    <rdf:rest rdf:nodeID="N386c2e42119e43489917433eacf42dce"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#GridElement">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#IndustrialBuilding">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/smartgrid-semantic#Building"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/smartgrid-semantic#Energy">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+</rdf:RDF>
