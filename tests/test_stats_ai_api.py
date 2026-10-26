@@ -120,9 +120,9 @@ def test_api_crud_complet(client, admin):
 
 
 def test_api_nl2sparql_stats_et_swagger(client, admin):
-    r = client.post("/api/nl2sparql", json={"question": "Combien de sources éoliennes y a-t-il ?", "llm": False}, headers=admin)
+    r = client.post("/api/nl2sparql", json={"question": "Combien de sources éoliennes y a-t-il ?"}, headers=admin)
     assert r.status_code == 200 and "SELECT" in r.json()["sparql"] and r.json()["resultat"]["rows"][0]["nombre"] == 2
-    r = client.post("/api/nl2sparql", json={"question": "Ajouter une batterie nommée B1 de capacité 3", "llm": False}, headers=admin)
+    r = client.post("/api/nl2sparql", json={"question": "Ajouter une batterie nommée B1 de capacité 3"}, headers=admin)
     assert r.json()["confirmation_requise"] is True
     assert client.get("/api/stats", headers=admin).json()["kpi"]["Bâtiments"] == 9
     assert client.get("/api/requetes/batiments_sources", headers=admin).json()["rows"]

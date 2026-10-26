@@ -79,6 +79,8 @@ def barre_laterale_session() -> None:
                 st.rerun()
         else:
             st.caption("Vous n'êtes pas connecté·e.")
+        from app.ui import backend
+        st.caption("🔌 Front → API REST" if backend.mode() == "api" else "🔌 Mode direct (API non détectée)")
 
 
 def formulaire_connexion() -> None:
@@ -91,6 +93,8 @@ def formulaire_connexion() -> None:
             u = auth.authentifier(choix["email"], mdp, get_store()) if choix else None
             if u:
                 st.session_state["utilisateur"] = u
+                from app.ui import backend
+                backend.obtenir_jeton(choix["email"], mdp)
                 st.rerun()
             else:
                 st.error("Mot de passe incorrect.")

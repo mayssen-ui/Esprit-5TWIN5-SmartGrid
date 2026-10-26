@@ -1,7 +1,7 @@
 """Poser une question en français : traduction automatique en SPARQL, résultats et correction manuelle."""
 import streamlit as st
 
-from app.ai import llm, nl2sparql
+from app.ui import backend
 from app.services import history
 from app.sparql.store import get_store
 from app.ui import common
@@ -32,16 +32,15 @@ for i, ex in enumerate(EXEMPLES):
 question = st.text_input("Votre question", key="question", placeholder="Ex. : Quelles sont les sources éoliennes ?")
 col_a, col_b = st.columns([1, 5])
 if col_a.button("Poser la question", type="primary") and question:
-    st.session_state["sortie"] = nl2sparql.repondre(question, store=store, peut_ecrire=common.est_admin(),
+    st.session_state["sortie"] = backend.repondre(question, store=store, peut_ecrire=common.est_admin(),
                                                     utilisateur=user["email"])
     s = st.session_state["sortie"]
     history.ajouter_historique(s["sparql"], question, len(s["resultat"]["rows"]) if s["resultat"] else None, s["erreur"])
-if not llm.disponible():
-    col_b.caption("Assistant IA non configuré : seules les questions courantes (règles intégrées) sont comprises.")
+col_b.caption("Analyse du français avec spaCy (lemmes, syntaxe, entités) puis rapprochement TF-IDF avec des requêtes modèles.")
 
 sortie = st.session_state.get("sortie")
 if sortie and sortie["question"] == question:
-    niveaux = {"regles": "règles intégrées", "llm": "assistant IA", "edite": "requête corrigée à la main"}
+    niveaux = {"regles": "règles intégrées", "similarite": "similarité TF-IDF avec une requête modèle", "edite": "requête corrigée à la main"}
     if sortie["erreur"] and not sortie["sparql"]:
         st.error(sortie["erreur"])
     else:
@@ -54,7 +53,7 @@ if sortie and sortie["question"] == question:
             st.code(sortie["sparql"], language="sparql")
             if common.est_admin():
                 if st.button("✅ Confirmer et exécuter la modification", type="primary"):
-                    st.session_state["sortie"] = nl2sparql.repondre(question, confirmer=True, sparql=sortie["sparql"],
+                    st.session_state["sortie"] = backend.repondre(question, confirmer=True, sparql=sortie["sparql"],
                                                                     store=store, peut_ecrire=True, utilisateur=user["email"])
                     st.rerun()
             else:
@@ -76,7 +75,7 @@ if sortie and sortie["question"] == question:
             st.caption("Modifiez la requête SPARQL si la traduction n'est pas exactement celle que vous souhaitiez.")
             corrigee = st.text_area("Requête SPARQL", sortie["sparql"], height=220, key="requete_corrigee")
             if st.button("Exécuter la requête corrigée"):
-                st.session_state["sortie"] = {**nl2sparql.repondre(question, sparql=corrigee, store=store,
+                st.session_state["sortie"] = {**backend.repondre(question, sparql=corrigee, store=store,
                                                                   peut_ecrire=common.est_admin(), utilisateur=user["email"])}
                 st.rerun()
 elif sortie:

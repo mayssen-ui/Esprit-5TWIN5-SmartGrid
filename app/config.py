@@ -50,14 +50,6 @@ class Settings:
         return os.getenv("FUSEKI_DATASET", "smartgrid")
 
     @property
-    def anthropic_key(self) -> str:
-        return os.getenv("ANTHROPIC_API_KEY", "").strip()
-
-    @property
-    def anthropic_model(self) -> str:
-        return os.getenv("ANTHROPIC_MODEL", "claude-sonnet-5-5")
-
-    @property
     def max_results(self) -> int:
         return int(os.getenv("SG_MAX_RESULTS", "500"))
 

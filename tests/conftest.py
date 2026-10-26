@@ -21,7 +21,7 @@ def store(tmp_path, monkeypatch):
     monkeypatch.setenv("SG_OWL_PATH", str(copie))
     monkeypatch.setenv("SG_DATA_DIR", str(tmp_path / "donnees"))   # historique et journaux isolés
     monkeypatch.setenv("SG_API_AUTH", "true")
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "")
+    monkeypatch.setenv("SG_UI_MODE", "direct")
     s = RdflibStore(copie)
     set_store(s)
     yield s

@@ -1,7 +1,7 @@
-"""Traduction langage humain (français / anglais) -> SPARQL, en 3 niveaux :
+"""Traduction langage humain (français / anglais) -> SPARQL, avec des outils de TALN (pas de LLM) :
 
-a) moteur de règles et de modèles (regex + synonymes issus de l'ontologie) ;
-b) à défaut, appel d'un LLM (API Claude) avec le résumé du schéma et des exemples few-shot ;
+a) analyse linguistique spaCy (lemmes, POS, dépendances, NER, PhraseMatcher) + règles et modèles de requêtes ;
+b) à défaut, rapprochement TF-IDF / similarité cosinus (scikit-learn) avec le catalogue de requêtes modèles ;
 c) garde-fous : syntaxe validée par rdflib, lecture libre limitée à SELECT/ASK/CONSTRUCT,
    confirmation explicite pour tout INSERT/DELETE, nombre de résultats limité, journalisation.
 """
@@ -11,7 +11,7 @@ import re
 from dataclasses import dataclass, field
 from typing import Any
 
-from app.ai import guardrails, llm
+from app.ai import guardrails, nlp
 from app.ai.vocab import (PROP_VAR, Individu, classes_dans, individus_connus, normaliser, props_dans,
                           trouver_individu)
 from app.errors import ForbiddenError, QueryRejected, SmartGridError, ValidationError
@@ -44,7 +44,7 @@ class Traduction:
     question: str
     sparql: str = ""
     explication: str = ""
-    niveau: str = "aucun"            # "regles" | "llm" | "edite" | "aucun"
+    niveau: str = "aucun"            # "regles" | "similarite" | "edite" | "aucun"
     regle: str = ""
     ecriture: bool = False
     forme: str = "liste"             # liste | compte | agregat | valeur | detail | ecriture | autre
@@ -64,6 +64,7 @@ class Ctx:
     props: list[tuple[str, int, int]]
     individus: list[Individu]
     individu: Individu | None
+    ana: nlp.Analyse | None = None
 
 
 # --------------------------------------------------------------------------------------------
@@ -198,7 +199,7 @@ def _valeurs_apres_props(ctx: Ctx, classe: str, depart: int = 0) -> dict[str, An
 
 
 def regle_ajout(ctx: Ctx) -> Traduction | None:
-    if not re.search(rf"(?<![a-z]){VERBES_AJOUT}(?![a-z])", ctx.norm):
+    if not (ctx.ana.a(*("ajouter", "creer", "enregistrer", "inserer", "add", "create", "insert", "nouveau", "nouvelle", "ajoute", "cree")) or re.search(rf"(?<![a-z]){VERBES_AJOUT}(?![a-z])", ctx.norm)):
         return None
     classe = _classe_sujet(ctx)
     if not classe:
@@ -229,7 +230,7 @@ def _art(cls: str) -> str:
 
 
 def regle_suppression(ctx: Ctx) -> Traduction | None:
-    if not re.search(rf"(?<![a-z]){VERBES_SUPPR}(?![a-z])", ctx.norm):
+    if not (ctx.ana.a(*("supprimer", "effacer", "retirer", "enlever", "delete", "remove", "supprime", "efface")) or re.search(rf"(?<![a-z]){VERBES_SUPPR}(?![a-z])", ctx.norm)):
         return None
     t = Traduction(ctx.question, niveau="regles", regle="suppression", ecriture=True, forme="ecriture")
     if not ctx.individu:
@@ -244,7 +245,7 @@ def regle_suppression(ctx: Ctx) -> Traduction | None:
 
 
 def regle_modification(ctx: Ctx) -> Traduction | None:
-    if not re.search(rf"(?<![a-z]){VERBES_MODIF}(?![a-z])", ctx.norm) or not ctx.props:
+    if not (ctx.ana.a(*("modifier", "changer", "mettre", "actualiser", "update", "set", "modifie", "change", "mets")) or re.search(rf"(?<![a-z]){VERBES_MODIF}(?![a-z])", ctx.norm)) or not ctx.props:
         return None
     t = Traduction(ctx.question, niveau="regles", regle="modification", ecriture=True, forme="ecriture")
     if not ctx.individu:
@@ -292,15 +293,21 @@ def _terme_source(ctx: Ctx, droite: str, decalage: int) -> tuple[str, str] | Non
 def regle_alimentation(ctx: Ctx) -> Traduction | None:
     """« Quels bâtiments sont alimentés par une ferme solaire ? » et variantes."""
     m = re.search(r"(?:alimente(?:e|es|s)?|supplied|powered|fed)\s+(?:par|by)\s+(.+)$", ctx.norm)
+    agent = nlp.complement_agent(ctx.ana)          # dépendances syntaxiques : « alimenté PAR <groupe nominal> »
+    if agent:
+        droite, pos = ctx.norm[agent[0]:], agent[0]
+    elif m:
+        droite, pos = m.group(1), m.start(1)
+    else:
+        droite, pos = None, len(ctx.norm)
     renouvelable_seul = re.search(r"batiments?\s+(?:renouvelables?|verts?)", ctx.norm)
-    if not m and not renouvelable_seul:
+    if droite is None and not renouvelable_seul:
         return None
-    gauche = ctx.norm[:m.start()] if m else ctx.norm
-    sujet = _classe_sujet(ctx, (0, len(gauche))) or "Building"
+    sujet = _classe_sujet(ctx, (0, pos)) or "Building"
     if not get_schema().est_sous_classe(sujet, "Building"):
         return None
-    if m:
-        terme = _terme_source(ctx, m.group(1), m.start(1))
+    if droite is not None:
+        terme = _terme_source(ctx, droite, pos)
         if not terme:
             return None
         motif, desc = terme
@@ -479,7 +486,7 @@ def regle_liste(ctx: Ctx) -> Traduction | None:
     cls = _classe_sujet(ctx)
     if not cls:
         return None
-    if not re.search(VERBES_LISTE, ctx.norm) and len(ctx.norm.split()) > 5 and not _filtre_numerique(ctx):
+    if not (ctx.ana.a(*("citer", "lister", "afficher", "montrer", "donner", "quel", "list", "show", "which", "display", "cite", "liste")) or re.search(VERBES_LISTE, ctx.norm)) and len(ctx.norm.split()) > 5 and not _filtre_numerique(ctx):
         return None
     filtre = _filtre_numerique(ctx)
     sparql = _select_liste(cls, filtre)
@@ -497,15 +504,40 @@ REGLES = [regle_ajout, regle_suppression, regle_modification, regle_alimentation
 # --------------------------------------------------------------------------------------------
 # Orchestration
 # --------------------------------------------------------------------------------------------
-def traduire(question: str, store: BaseStore | None = None, utiliser_llm: bool = True) -> Traduction:
-    """Niveau a) règles, puis niveau b) LLM ; le niveau c) (garde-fous) s'applique dans `repondre`."""
+# Formulations alternatives (langage courant) ajoutées aux phrases modèles pour la similarité TF-IDF
+ALIAS = {
+    "bilan_par_noeud": "bilan excédent déficit équilibre production consommation chaque zone endroit secteur réseau",
+    "batiments_sans_source": "bâtiments non alimentés sans alimentation électrique privés de courant sans source",
+    "conso_superieure_production": "bâtiments qui consomment trop plus que leur source ne produit surcharge déficit",
+    "noeuds_atteignables": "quels noeuds peut-on atteindre joindre depuis un point en suivant les connexions chemin",
+    "sources_plusieurs_batiments": "sources qui alimentent plusieurs bâtiments au moins deux regroupées",
+    "batiments_au_dessus_moyenne": "gros consommateurs consomment plus que la moyenne supérieur à la moyenne",
+    "batiments_batteries": "bâtiments équipés de stockage batterie capacité efficacité",
+}
+_SIMILARITE: "nlp.Similarite | None" = None
+
+
+def _similarite() -> "nlp.Similarite":
+    """Index TF-IDF des phrases modèles : libellés et explications du catalogue de requêtes croisées."""
+    global _SIMILARITE
+    if _SIMILARITE is None:
+        from app.sparql.queries import CATALOGUE
+        _SIMILARITE = nlp.Similarite([(q.id, f"{q.libelle}. {q.explication} {ALIAS.get(q.id, '')}") for q in CATALOGUE])
+    return _SIMILARITE
+
+
+def traduire(question: str, store: BaseStore | None = None) -> Traduction:
+    """Niveau a) analyse spaCy + règles, puis niveau b) similarité TF-IDF avec le catalogue de requêtes ;
+    le niveau c) (garde-fous) s'applique dans `repondre`."""
     store = store or get_store()
     question = (question or "").strip()
     if not question:
         return Traduction(question, erreur="Posez une question en français ou en anglais.")
     norm = normaliser(question)
+    ana = nlp.analyser(question)
     individus = individus_connus(store)
-    ctx = Ctx(question, norm, store, classes_dans(norm), props_dans(norm), individus, trouver_individu(question, individus))
+    ctx = Ctx(question, norm, store, classes_dans(ana), props_dans(ana), individus,
+              trouver_individu(question, individus), ana)
     for regle in REGLES:
         try:
             t = regle(ctx)
@@ -513,13 +545,12 @@ def traduire(question: str, store: BaseStore | None = None, utiliser_llm: bool =
             t = Traduction(question, niveau="regles", regle=regle.__name__, erreur=str(exc))
         if t is not None:
             return t
-    if utiliser_llm:
-        try:
-            sparql = llm.generer_sparql(question)
-        except SmartGridError as exc:
-            return Traduction(question, erreur=str(exc))
-        t = Traduction(question, sparql, "Requête proposée par l'assistant IA : relisez-la avant de l'exécuter.", "llm", "llm")
-        return t
+    from app.sparql.queries import PAR_ID
+    trouve = _similarite().meilleur(question)
+    if trouve:
+        q = PAR_ID[trouve[0]]
+        return Traduction(question, q.sparql, f"{q.libelle}. (requête modèle la plus proche, similarité {trouve[1]:.0%})",
+                          "similarite", q.id, False, "liste", {"similarite": trouve[1]})
     return Traduction(question, erreur="Je n'ai pas compris cette question. Essayez par exemple : « Citer les différents bâtiments ».")
 
 
@@ -559,7 +590,7 @@ def phrase_resultat(t: Traduction, res: QueryResult | None) -> str:
 
 def repondre(
     question: str = "", confirmer: bool = False, sparql: str | None = None, store: BaseStore | None = None,
-    peut_ecrire: bool = True, utiliser_llm: bool = True, utilisateur: str | None = None,
+    peut_ecrire: bool = True, utilisateur: str | None = None,
 ) -> dict:
     """Point d'entrée unique : traduit, valide (garde-fous), exécute et explique.
 
@@ -570,7 +601,7 @@ def repondre(
     if sparql and sparql.strip():
         t = Traduction(question, sparql.strip(), "Requête saisie ou corrigée à la main.", "edite", "manuel")
     else:
-        t = traduire(question, store, utiliser_llm)
+        t = traduire(question, store)
     sortie: dict[str, Any] = {
         "question": question, "sparql": t.sparql, "explication": t.explication, "niveau": t.niveau,
         "regle": t.regle, "resultat": None, "execute": False, "confirmation_requise": False,

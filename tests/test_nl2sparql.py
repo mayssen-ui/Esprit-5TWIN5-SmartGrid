@@ -8,7 +8,7 @@ from app.services import crud
 
 
 def poser(question, **kw):
-    return nl2sparql.repondre(question, utiliser_llm=False, **kw)
+    return nl2sparql.repondre(question, **kw)
 
 
 def test_lister_les_batiments(store):

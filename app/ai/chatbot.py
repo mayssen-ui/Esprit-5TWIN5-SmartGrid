@@ -1,16 +1,15 @@
 """Assistant SmartGrid : conversation en langage naturel, réponses fondées sur le graphe (RAG).
 
 Principe : (1) retrouver les faits pertinents par SPARQL (règles de traduction, sinon recherche des
-individus cités), (2) formuler la réponse (LLM si configuré, sinon phrase automatique), (3) citer les
+individus cités), (2) formuler la réponse (phrases générées à partir des résultats), (3) citer les
 individus utilisés.
 """
 from __future__ import annotations
 
 from typing import Any
 
-from app.ai import llm, nl2sparql
+from app.ai import nl2sparql
 from app.ai.vocab import individus_connus, normaliser
-from app.errors import SmartGridError
 from app.labels import libelle_prop
 from app.services import crud, stats
 from app.sparql.store import BaseStore, get_store
@@ -50,10 +49,10 @@ def repondre(question: str, historique: list[dict] | None = None, store: BaseSto
     store = store or get_store()
     faits: list[str] = []
     sparql = ""
-    t = nl2sparql.traduire(question, store, utiliser_llm=llm.disponible())
+    t = nl2sparql.traduire(question, store)
     reponse_directe = ""
     if t.sparql and not t.ecriture and not t.erreur:
-        sortie = nl2sparql.repondre(question, store=store, peut_ecrire=False, utiliser_llm=llm.disponible())
+        sortie = nl2sparql.repondre(question, store=store, peut_ecrire=False)
         if sortie["execute"] and sortie["resultat"]:
             sparql = sortie["sparql"]
             faits += _faits_depuis_resultat(sortie["resultat"])
@@ -75,11 +74,8 @@ def repondre(question: str, historique: list[dict] | None = None, store: BaseSto
         reponse_directe = "Je n'ai pas trouvé d'élément précis ; voici un résumé du réseau."
     contexte = "\n".join(faits)
     texte = reponse_directe
-    if llm.disponible():
-        try:
-            texte = llm.repondre_avec_contexte(question, contexte, historique)
-        except SmartGridError:
-            pass
+    if len(faits) > 1 and faits[0] not in texte:
+        texte += "\n\n" + "\n".join(f"- {f}" for f in faits[:10]) + ("\n- …" if len(faits) > 10 else "")
     if not texte:
         texte = "Voici les informations trouvées dans le graphe."
     cites = _citations(contexte + "\n" + texte, store)

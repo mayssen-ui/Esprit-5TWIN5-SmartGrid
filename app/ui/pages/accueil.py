@@ -45,5 +45,5 @@ st.markdown("""
 | **Prévisions, alertes, simulation** | Prévoir la production, détecter les anomalies, recommander des sources, tester des scénarios. |
 | **Import / export** | Échanger des données (RDF/XML, Turtle, JSON-LD, CSV). |
 """)
-st.caption(f"Moteur de stockage : **{settings.backend}** · Assistant IA : "
-           f"{'activé' if settings.anthropic_key else 'non configuré (les règles intégrées restent disponibles)'}")
+st.caption(f"Moteur de stockage : **{settings.backend}** · Traitement du langage : "
+           "spaCy `fr_core_news_md` + scikit-learn (aucun LLM)")

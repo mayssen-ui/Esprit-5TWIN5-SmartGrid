@@ -23,7 +23,6 @@ class NL2SparqlIn(BaseModel):
     question: str = Field("", description="Phrase en français ou en anglais", examples=["Citer les différents bâtiments"])
     confirm: bool = Field(False, description="Doit être vrai pour exécuter un INSERT / DELETE généré")
     sparql: str | None = Field(None, description="Requête corrigée à la main (remplace la traduction)")
-    llm: bool = Field(True, description="Autoriser l'appel au LLM si aucun modèle ne correspond")
 
 
 class SparqlIn(BaseModel):
@@ -109,7 +108,7 @@ nl_router = APIRouter(prefix="/api", tags=["Langage humain → SPARQL"])
 def nl2sparql_route(corps: NL2SparqlIn, user: dict = Depends(utilisateur_courant)):
     sortie = nl2sparql.repondre(
         corps.question, confirmer=corps.confirm, sparql=corps.sparql, peut_ecrire=user.get("role") == "admin",
-        utiliser_llm=corps.llm, utilisateur=user.get("email"))
+        utilisateur=user.get("email"))
     history.ajouter_historique(sortie["sparql"], corps.question,
                                len(sortie["resultat"]["rows"]) if sortie["resultat"] else None, sortie["erreur"])
     return sortie
@@ -295,8 +294,9 @@ crud_router = APIRouter(prefix="/api", tags=["CRUD des individus"])
 @crud_router.get("/{classe}", summary="Lister les individus d'une classe (recherche, tri, pagination)",
                  dependencies=[Depends(utilisateur_courant)])
 def lister(classe: str, q: str = "", tri: str | None = None, decroissant: bool = False,
-           page: int = Query(1, ge=1), taille: int = Query(20, ge=1, le=500)):
-    return crud.rechercher(crud.resoudre_classe(classe), q, None, tri, decroissant, page, taille)
+           page: int = Query(1, ge=1), taille: int = Query(20, ge=1, le=500), filtre_type: str | None = None):
+    return crud.rechercher(crud.resoudre_classe(classe), q, {"type": filtre_type} if filtre_type else None,
+                           tri, decroissant, page, taille)
 
 
 @crud_router.get("/{classe}/{identifiant}", summary="Fiche détail d'un individu", dependencies=[Depends(utilisateur_courant)])

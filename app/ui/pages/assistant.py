@@ -1,7 +1,7 @@
 """Assistant SmartGrid : conversation fondée sur le graphe (RAG), avec citation des éléments utilisés."""
 import streamlit as st
 
-from app.ai import chatbot, llm
+from app.ai import chatbot
 from app.sparql.store import get_store
 from app.ui import common
 
@@ -9,9 +9,7 @@ common.exiger_connexion()
 store = get_store()
 st.title("🤖 Assistant SmartGrid")
 common.phrase("Posez vos questions en langage naturel : l'assistant cherche les faits dans le graphe puis vous répond en citant les éléments utilisés.")
-if not llm.disponible():
-    st.info("Mode sans IA générative : l'assistant répond avec des phrases automatiques. "
-            "Ajoutez `ANTHROPIC_API_KEY` dans `.env` pour des réponses plus rédigées.")
+st.caption("Compréhension du français par spaCy (lemmes, analyse syntaxique) ; aucune IA générative externe n'est utilisée.")
 
 if "chat" not in st.session_state:
     st.session_state["chat"] = [{"role": "assistant", "content": "Bonjour ! Je peux vous renseigner sur les bâtiments, les sources, "

@@ -21,7 +21,7 @@ recommandations, simulation, assistant).
 ┌───────────────────────────────────────────────────────────────┐
 │ app/services : crud · complex_ops · stats · reasoning · auth   │
 │                io_service · history                            │
-│ app/ai       : nl2sparql · llm · guardrails · chatbot · forecast│
+│ app/ai       : nlp · nl2sparql · guardrails · chatbot · forecast│
 │                anomalies · recommend · simulation              │
 │ app/sparql   : schema (Étape 0) · queries · store · prefixes   │
 └───────────────────────────────┬───────────────────────────────┘
@@ -37,7 +37,7 @@ SmartGrid/
 ├── data/schema_summary.md|json      résumé du schéma généré automatiquement (Étape 0)
 ├── app/{api,services,sparql,ai,ui}  code
 ├── streamlit_app.py                 point d'entrée de l'interface
-├── tests/                           74 tests pytest
+├── tests/                           80 tests pytest
 ├── requirements.txt · .env.example · docker-compose.yml
 ```
 
@@ -83,10 +83,18 @@ docker compose up -d
 puis dans `.env` : `SG_BACKEND=fuseki`. Au premier démarrage, l'ontologie est chargée dans Fuseki ; chaque écriture est
 envoyée à Fuseki et exportée dans le `.owl`.
 
-### Assistant IA (facultatif)
+### Modèle de langue (obligatoire pour « Poser une question »)
 
-Renseigner `ANTHROPIC_API_KEY` dans `.env` active : le niveau 2 du NL→SPARQL (LLM) et des réponses plus rédigées du chatbot.
-Sans clé, tout le reste fonctionne (règles intégrées).
+Le module NLP utilise spaCy et son modèle français, installé par `pip install -r requirements.txt`. Si besoin :
+`python -m spacy download fr_core_news_md`. Aucune clé d'API ni service externe n'est nécessaire.
+
+### Communication front → back
+
+Au démarrage, Streamlit teste si l'API répond sur `SG_API_URL` (défaut `http://localhost:8000`) :
+* API démarrée : les pages **Gérer les éléments** et **Poser une question** passent par l'API REST (jeton obtenu à la connexion) ;
+  la barre latérale affiche « Front → API REST ».
+* API arrêtée : repli en mode direct (services Python), la barre latérale l'indique.
+`SG_UI_MODE=api|direct|auto` force le mode. Lancez donc l'API **avant** Streamlit pour le mode complet.
 
 ## Étape 0 — schéma de l'ontologie
 
@@ -94,7 +102,7 @@ Sans clé, tout le reste fonctionne (règles intégrées).
 python -m app.sparql.schema
 ```
 Lit le fichier OWL (rdflib) et écrit `data/schema_summary.md` / `.json` : classes, hiérarchie, propriétés avec domaine et portée.
-Ce résumé est aussi envoyé au LLM (`schema_en_texte()`) et sert à générer les formulaires dynamiques.
+Ce résumé sert à générer les formulaires dynamiques et la validation (`schema_en_texte()` en donne la version texte).
 
 Modifications apportées à l'ontologie d'origine : classe `User` reliée par `owns` (→ Building) et `manages` (→ GridNode),
 data properties `hasEmail` et `hasRole`, **4 utilisateurs**, `connectedTo` déclarée **symétrique**, et des individus supplémentaires
@@ -135,11 +143,32 @@ data properties `hasEmail` et `hasRole`, **4 utilisateurs**, `connectedTo` décl
 curl -X POST http://localhost:8000/api/nl2sparql -H "Authorization: Bearer <jeton>" -H "Content-Type: application/json" \
      -d "{\"question\": \"Combien de sources éoliennes y a-t-il ?\"}"
 ```
-Réponse : `sparql`, `resultat`, `explication`, `message` (phrase), `niveau` (`regles`/`llm`/`edite`), `confirmation_requise`.
+Réponse : `sparql`, `resultat`, `explication`, `message` (phrase), `niveau` (`regles`/`similarite`/`edite`), `confirmation_requise`.
 
-**Stratégie en 3 niveaux** : (a) règles + synonymes issus de l'ontologie ; (b) à défaut, LLM Claude avec le résumé du schéma et 5 exemples few-shot ;
+**Stratégie en 3 niveaux (traitement du langage avec spaCy et scikit-learn, sans LLM)** :
+(a) analyse linguistique et règles : voir « Module NLP » ci-dessous ; (b) à défaut, rapprochement TF-IDF avec les requêtes modèles du catalogue ;
 (c) garde-fous : syntaxe validée par rdflib, lecture libre limitée à SELECT/ASK/CONSTRUCT, `SERVICE`/`DROP`/`CLEAR`/`LOAD` refusés,
 INSERT/DELETE exécutés seulement avec `confirm: true` et rôle admin, `LIMIT` imposé (`SG_MAX_RESULTS`), journal dans `data/logs/nl2sparql.jsonl`.
+
+## Module NLP / TALN (langage naturel → SPARQL)
+
+Conformément au sujet, la traduction n'utilise **aucun LLM ni API de génération** (ni Gemini, ni OpenAI, ni Claude) :
+elle est développée avec des bibliothèques de TALN.
+
+| Outil | Rôle dans le projet | Fichier |
+|---|---|---|
+| **spaCy** `fr_core_news_md` : tokenisation | découpe la phrase | `app/ai/nlp.py` |
+| spaCy : **lemmatisation** | « alimentés » → *alimenter*, « sources éoliennes » → *source éolienne* : pluriels et conjugaisons gérés | `nlp.analyser` |
+| spaCy : **étiquetage grammatical (POS)** | catégories des mots (verbe, nom, nombre…) | `Analyse.pos` |
+| spaCy : **analyse en dépendances** | extrait le complément d'agent de « alimenté **par** une ferme solaire » | `nlp.complement_agent` |
+| spaCy : **reconnaissance d'entités nommées** | repère les lieux (ex. Tunis) | `Analyse.entites` |
+| spaCy **PhraseMatcher** (sur les lemmes) | repère les classes, propriétés et individus de l'ontologie (dictionnaire de synonymes FR/EN) | `nlp.Repereur`, `vocab.py` |
+| **scikit-learn** `TfidfVectorizer` + similarité cosinus | si aucune règle ne s'applique, rattache la question à la requête modèle la plus proche (17 requêtes du catalogue) | `nlp.Similarite` |
+| rdflib | validation syntaxique des requêtes générées | `guardrails.py` |
+
+Chaîne de traitement : phrase → analyse spaCy → repérage des entités de l'ontologie → détection de l'intention (liste, comptage, agrégat,
+top N, valeur, relation, ajout, modification, suppression) → génération du SPARQL (modèles) → garde-fous → exécution → phrase de réponse.
+Si l'intention n'est pas reconnue : similarité TF-IDF (seuil 0,30) avec les requêtes modèles, sinon message d'aide.
 
 ## API REST
 
@@ -153,8 +182,8 @@ Codes d'erreur : 401 (non connecté), 403 (lecteur), 404 (inconnu), 409 (éléme
 ```bash
 pytest
 ```
-74 tests : CRUD et validation, CRUD complexe et rollback, 17 requêtes croisées, NL→SPARQL et garde-fous, statistiques, IA, HermiT,
-import/export, API et rôles, chargement de chaque page Streamlit. Chaque test travaille sur une copie jetable de l'ontologie.
+80 tests : CRUD et validation, CRUD complexe et rollback, 17 requêtes croisées, NL→SPARQL et garde-fous, statistiques, IA, HermiT,
+import/export, API et rôles, module NLP (lemmes, dépendances, similarité), chargement de chaque page Streamlit. Chaque test travaille sur une copie jetable de l'ontologie.
 
 ## Limites connues
 
@@ -178,7 +207,8 @@ import/export, API et rôles, chargement de chaque page Streamlit. Chaque test t
 | API REST `/api/{classe}` + Swagger | ✅ | `app/api/` |
 | Requêtes croisées (8 cas obligatoires + FILTER/OPTIONAL/UNION/GROUP BY/HAVING/ORDER BY/sous-requêtes/property path/VALUES) | ✅ | `app/sparql/queries.py` |
 | CRUD complexe transactionnel (rollback, réaffectation, suppression avec détachement, affectation multiple) | ✅ | `app/services/complex_ops.py` |
-| `POST /api/nl2sparql` 3 niveaux + garde-fous + page + « Corriger la requête » | ✅ (niveau LLM nécessite une clé, non testé en réel) | `app/ai/nl2sparql.py`, `llm.py`, `guardrails.py` |
+| Module NLP/TALN sans LLM (spaCy, scikit-learn) : `POST /api/nl2sparql` + garde-fous + page + « Corriger la requête » | ✅ | `app/ai/nlp.py`, `nl2sparql.py`, `vocab.py`, `guardrails.py` |
+| Communication front ↔ back (Streamlit via l'API REST) | ✅ (gestion CRUD et questions ; les autres pages utilisent les services directement) | `app/ui/backend.py` |
 | Statistiques SPARQL agrégées, graphiques Plotly, KPI, export CSV/PDF | ✅ | `app/services/stats.py`, page *Tableau de bord* |
 | Graphe pyvis (couleurs, filtres, clic) | ✅ | page *Graphe du réseau* |
 | Chatbot RAG avec citations | ✅ | `app/ai/chatbot.py` |
@@ -189,7 +219,7 @@ import/export, API et rôles, chargement de chaque page Streamlit. Chaque test t
 | Import/export RDF/XML, Turtle, JSON-LD, CSV, import en masse | ✅ | `app/services/io_service.py` |
 | Historique, favoris, éditeur SPARQL coloré | ✅ | `app/services/history.py`, page *Éditeur SPARQL* |
 | Authentification par rôle liée à `User` | ✅ | `app/services/auth.py`, `app/api/deps.py` |
-| Tests pytest (CRUD, NL→SPARQL, statistiques) | ✅ 74 tests | `tests/` |
+| Tests pytest (CRUD, NL→SPARQL, statistiques) | ✅ 80 tests | `tests/` |
 
 ## L'ontologie en bref
 
@@ -210,7 +240,7 @@ import/export, API et rôles, chargement de chaque page Streamlit. Chaque test t
 | `SG_BACKEND` | `rdflib` ou `fuseki` | `rdflib` |
 | `SG_OWL_PATH` | fichier d'ontologie | `data/SmartGrid-Semantic.owl` |
 | `FUSEKI_URL`, `FUSEKI_DATASET` | serveur Fuseki | `http://localhost:3030`, `smartgrid` |
-| `ANTHROPIC_API_KEY`, `ANTHROPIC_MODEL` | assistant IA (facultatif) | vide, `claude-sonnet-5-5` |
+| `SG_UI_MODE`, `SG_API_URL` | mode du front (`auto`/`api`/`direct`) et adresse de l'API | `auto`, `http://localhost:8000` |
 | `SG_ADMIN_PASSWORD`, `SG_READER_PASSWORD` | mots de passe des rôles | `admin123`, `lecteur123` |
 | `SG_API_AUTH`, `SG_SECRET_KEY` | authentification de l'API | `true`, `changez-moi` |
 | `SG_MAX_RESULTS` | plafond de résultats | `500` |

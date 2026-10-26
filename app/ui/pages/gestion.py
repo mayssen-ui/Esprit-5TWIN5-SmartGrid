@@ -6,7 +6,7 @@ import streamlit as st
 
 from app.errors import IntegrityError, SmartGridError
 from app.labels import libelle_avec_unite, nom_classe
-from app.services import crud
+from app.ui import backend as crud
 from app.sparql.schema import get_schema
 from app.sparql.store import get_store
 from app.ui import common
